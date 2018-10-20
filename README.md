@@ -8,3 +8,6 @@ Atmospheric Radiation Measurement (ARM) user facility. 1996, updated hourly. ARM
 Monthly/Annual mean of
 - Dry Bulb Temperature 510m above surface (C)
 - Precipitation Rate (mm/hour)
+
+
+![temp_z500_precip](figures/temp_z500_precip.eps)
