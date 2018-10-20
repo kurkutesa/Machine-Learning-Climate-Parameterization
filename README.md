@@ -10,4 +10,3 @@ Monthly/Annual mean of
 - Precipitation Rate (mm/hour)
 
 
-![temp_z500_precip](figures/temp_z500_precip.eps)
