@@ -14,11 +14,14 @@ def mean_in_year(DA):
 
 # Load DataSet
 DS = xr.open_mfdataset('twparmbeatmC1.c1.*.000000.cdf')
+# xr.open_dataset would suffice if there is only one NetCDF file
 
-# Extract Dry Bulb Temperature in z-coordinate
-# Select the altitude nearest too 500m above surface
+# Use ncdump or ipython to check variables in DS first
+
+# Extract Dry Bulb Temperature in z-coordinate (T_z)
+# Select the altitude nearest to 500m above surface
 # Drop NaN, convert to Celcius
-temp_z500 = DS.T_z.sel(z=500,method='nearest').dropna(dim='time') - 273.15  # .ffill(dim='time')
+temp_z500 = DS.T_z.sel(z=500,method='nearest').dropna(dim='time') - 273.15  # or .ffill(dim='time')
 # Extract Precipitation Rate
 precip = DS.prec_sfc.dropna(dim='time');
 
@@ -38,7 +41,7 @@ DS_yearly = xr.merge([temp_z500_yearly,precip_yearly]).dropna(dim='year')
 
 
 plt.scatter(DS_monthly.T_z , DS_monthly.prec_sfc)
-plt.xlabel('Temperature 510m above surface (C)')
+plt.xlabel('Temperature 500m above surface (C)')
 plt.ylabel('Precipitation (mm/hour)')
 plt.title('Monthly Average in Manus, PNG')
 plt.show()
