@@ -13,7 +13,8 @@ def mean_in_year(DA):
     return DA.assign_coords(year = DA.time.dt.year.to_index()).groupby('year').mean()
 
 # Load DataSet
-DS = xr.open_mfdataset('twparmbeatmC1.c1.*.000000.cdf')
+mf = 'data/twparmbeatmC1.c1.*.000000.cdf'
+DS = xr.open_mfdataset(mf)
 # xr.open_dataset would suffice if there is only one NetCDF file
 
 # Use ncdump or ipython to check variables in DS first
@@ -23,7 +24,7 @@ DS = xr.open_mfdataset('twparmbeatmC1.c1.*.000000.cdf')
 # Drop NaN, convert to Celcius
 temp_z500 = DS.T_z.sel(z=500,method='nearest').dropna(dim='time') - 273.15  # or .ffill(dim='time')
 # Extract Precipitation Rate
-precip = DS.prec_sfc.dropna(dim='time');
+precip = DS.prec_sfc.dropna(dim='time')
 
 
 temp_z500_monthly = mean_in_year_month(temp_z500)
