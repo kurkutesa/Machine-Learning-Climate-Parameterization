@@ -22,9 +22,9 @@ import xarray as xr
 toc()
 
 def sum_in_year_month(DA):
-    # Index of Year-Day starts at Jan 1991
+    # Index of Year-Month starts at Jan 1991
     month_cnt_1991 = (DA.time.dt.year.to_index() - 1991) * 12 + DA.time.dt.month.to_index()
-    # Assign newly defined Year-Day to coordinates, then group by it, then take the SUM
+    # Assign newly defined Year-Month to coordinates, then group by it, then take the SUM
     return DA.assign_coords(year_month = month_cnt_1991).groupby('year_month').sum()
 
 def mean_in_year_month(DA):
@@ -52,14 +52,15 @@ y = DS_monthly.w.values
 x_norm = x-x.mean()
 y_norm = y-y.mean()
 cc = np.correlate(x_norm,y_norm,'full')
+cc = cc / max(abs(cc))
 lag = range(-len(x)+1,len(x))
 toc()
 
 plt.figure()
 plt.plot(lag,cc)
 plt.xlabel('Lag (month)')
-plt.ylabel('Cross-correlation')
-plt.title('Cross-correlation between Precipitation and Vertical Velocity')
+plt.ylabel('Normalized Cross-correlation')
+plt.title('Correlation between Precipitation and Vertical Velocity')
 plt.savefig('fig/cc.eps')
 
 plt.figure()
