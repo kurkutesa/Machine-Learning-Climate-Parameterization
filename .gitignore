@@ -2,3 +2,5 @@
 .DS_Store
 *.cdf
 *.nc
+*.DS_Store
+*.data-00000-of-00001
