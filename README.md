@@ -11,7 +11,7 @@ This is an on-going project with the aim to parameterize subgrid climate process
 
 * [work/NN/](./work/NN/) contains all machine learning-related codes using *TensorFlow* package.
 
-* [work/NN/colab](./work/NN/colab) contains those machine learning-related codes in .ipynb format, but it will not be the most up-to-date version. It is yet to be synchronized with Colab.
+* [work/NN/colab/](./work/NN/colab/) contains those machine learning-related codes in .ipynb format, but it will not be the most up-to-date version. It is yet to be synchronized with Colab.
 
 * Note that all raw data in NetCDF format are not available in the repo as they all exceed GitHub file size limit (100 MB).
 
