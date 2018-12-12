@@ -9,7 +9,7 @@ This is an on-going project with the aim to parameterize subgrid climate process
 
 * [work/](./work/) contains files related to the project.
 
-× [work/NN/](./work/NN/) contains all machine learning-related codes using *TensorFlow* package.
+* [work/NN/](./work/NN/) contains all machine learning-related codes using *TensorFlow* package.
 
 * Note that all raw data in NetCDF format are not available in the repo as they all exceed GitHub file size limit (100 MB).
 
