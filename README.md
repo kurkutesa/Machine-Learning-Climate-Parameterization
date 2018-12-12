@@ -2,6 +2,15 @@
 
 This is an on-going project with the aim to parameterize subgrid climate processes that are too complex or small-scale to be explicitly represented and numerically computed in existing global climate models (GCMs), with the focus on emulating convection parameterization at the moment. 
 
+## Directories
+* [UM.teaching/](./UM.teaching/) contains python codes for teaching purpose. It demonstrates basic *xarray* operations to analyze data with netCDF format.
+
+* [test.code/](./test.code/) contains python codes to test if all required python packages are intalled in your own environment.
+
+* [work/](./work/) contains files related to the project.
+
+*TensorFlow* package is used in this project for machine learning tasks, and all machine learning-related codes are in [work/NN/](./work/NN/). Note that all raw data in NetCDF format are not available in the repo as they all exceed GitHub file size limit (100 MB).
+
 ## Objectives
 
 Traditional atmospheric models used to forecast the weather a few days ahead or to project climate change over the next century require parameterizations for physical processes that cannot be directly represented by the resolved large-scale flow. Parameterization corresponds to approximating effects of the unresolved processes as a function of the resolved flow. Uncertainties in climate projections for the next 20 to 50 years largely arise from uncertainty in how unresolved processes are parameterized, for which convection is one of the key processes. Convection arises because the atmosphere is heated from below and air becomes unstable due to vertical density gradient. At which point it mixes vertically, generating deep cloud layers, heavy rain, and atmospheric heating which then drive the atmospheric circulation. This on-going project aims to take advantage of rich datasets of observations from *in situ* measurements and remote sensing to construct a function using machine learning (ML) that parameterizes convection as a case study to parameterize many processes in atmospheric models.
