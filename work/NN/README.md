@@ -14,7 +14,7 @@ Next step: random forest, kNN
 # Classical Machine Learning
 ## Classification - SVM - RBF kernel
 ### SVM classifies if it is rainy the next hour (the best classifier)
-- Code: [./colab/SVM-1hrlater.ipynb](./colab/SVM-1hrlater.ipynb)
+- Code: [SVM-1hrlater.ipynb](./colab/SVM-1hrlater.ipynb)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
@@ -23,7 +23,7 @@ Next step: random forest, kNN
 9. plt.plot = 1D True precipitation plots for both classes separately
 
 ### SVM classifies if it is rainy the next 6 hours
-- Code: [./colab/SVM-6hrcumul.ipynb](./colab/SVM-6hrcumul.ipynb)
+- Code: [SVM-6hrcumul.ipynb](./colab/SVM-6hrcumul.ipynb)
 1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
 1. Classification Threshold = 0.3002
 2. train_size = 0.6
