@@ -9,7 +9,7 @@ This is an on-going project with the aim to parameterize subgrid climate process
 
 * [work/](./work/) contains files related to the project.
 
-* [work/NN/](./work/NN/) contains all machine learning-related codes using *TensorFlow* package.
+* [work/NN/](./work/NN/) contains all machine learning-related codes using *TensorFlow* package. Click [here](./work/NN/README.md) to find out more. 
 
 * [work/NN/colab/](./work/NN/colab/) contains those machine learning-related codes in .ipynb format, optimzied for [Google Colaboratory](https://colab.research.google.com/) environment. They have same functionalities with .py equivalents, with minor code difference taking into account different environments. I am building codes to enable automatic conversion between .py and .ipynb files, as I leveraged both envionments for various tasks.
 
