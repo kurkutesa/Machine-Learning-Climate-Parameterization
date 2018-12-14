@@ -1,5 +1,6 @@
 # Remarks
 All *.ipynb* files are in [colab/](./colab/).
+Next step: random forest, kNN
 
 # Data Extraction
 ### Convert raw data to data of interest in NetCDF
