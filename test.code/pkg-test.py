@@ -2,6 +2,8 @@ import faulthandler; faulthandler.enable()
 
 import numpy as np
 import pandas as pd
+import sklearn
+import seaborn as sns
 from math import floor, ceil
 
 import matplotlib
