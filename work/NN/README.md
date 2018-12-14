@@ -18,8 +18,8 @@ Next step: random forest, kNN
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
-3. Rainy period ratio = 0.1659 - blind test accuracy = 0.8341
-3. **test accuracy = 0.8922**
+3. Rainy period ratio = 0.1659/ 0.4869 - blind test accuracy = 0.8341/ 0.5131
+3. **test accuracy = 0.8922/ 0.4(bad)**
 9. plt.plot = 1D True precipitation plots for both classes separately
 
 ### SVM classifies if it is rainy the next 6 hours
