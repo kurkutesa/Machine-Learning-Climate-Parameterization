@@ -13,7 +13,7 @@ Next step: random forest, kNN
 
 # Classical Machine Learning
 ## Classification - SVM - RBF kernel
-### SVM classifies if it is rainy the next hour (the best classifier)
+### SVM classifies if it is rainy the next hour (the second best classifier)
 - Code: [SVM-1hrlater.ipynb](./colab/SVM-1hrlater.ipynb)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
@@ -30,6 +30,16 @@ Next step: random forest, kNN
 3. Rainy period ratio = 0.4995 - blind test accuracy = 0.5
 3. **test accuracy = 0.4672**
 9. plt.plot = None
+
+## Classification - Random Forest
+### RF classifies if it is rainy the next hour (the best classifier)
+- Code: [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
+1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
+1. Classification Threshold = 0.1/ 0
+2. train_size = 0.6
+3. Rainy period ratio = 0.1659/ 0.4869 - blind test accuracy = 0.8341/ 0.5131
+3. **test accuracy = 0.9/ 0.7 !!!**
+9. plt.plot = 1D True precipitation plots for both classes separately
 
 # Neural Networks
 ## Regression
