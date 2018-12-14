@@ -43,6 +43,8 @@ All *.ipynb* files are in [colab/](./colab/).
 9. plt.plot = 1D True precipitation plots for both classes separately
 
 # Neural Networks
+Abs loss is de-normalized, and is not used as a loss metric. Other regression losses are normalized.
+
 ## Regression
 ### Naïve NN regression
 - Code: [NN.py](./NN.py)
