@@ -1,6 +1,6 @@
 # Remarks
-All *.ipynb* files are in [colab/](./colab/).
-
+- All *.ipynb* files are in [colab/](./colab/).
+- From Run 04.\*, run version \*.0 is reserved for testground.
 # Data Extraction
 ### Convert raw data to data of interest in NetCDF
 [extract_data.py](./extract_data.py): raw **DataSet** in *.nc* / *.cdf* -> var of interest **DataSet** in *.cdf*
@@ -59,6 +59,20 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 8. learning_rates = [1e-2, 1e-3, 1e-4]#, 1e-5, 1e-6]
 9. plt.plot = True precipitation vs Predicted precipitation
 9. ***LeakyReLU-sqloss-1e-3* mean abs loss = 1.131 < other config**, tends to all collapse to zero due to imbalanced data
+
+## NN regression after RF binary classification
+- Code: [NN_after_RF_1hr.py](./NN_after_RF_1hr.py)
+1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/forNN/)
+2. train_size = 0.6 - have to follow RF config in [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
+3. num_epoch = 100000
+3. n_hid = [n_in = 151, 128, 64, 32, 16, n_out = 1]
+4. run_ID = [04.1](./log/04.1)
+5. connections = ['fc']#, 'bn', 'do']
+6. act_funcs = ['relu', 'leaky_relu']
+1. loss_funcs = ['square', 'quartic']
+1. learning_rates = [1e-3, 1e-4]
+9. plt.plot = True precipitation vs Predicted precipitation in 2 colours (each for each RF class)
+9. **RUNNING**
 
 ## Classification
 ### NN/ Log reg classifies if it is rainy the next 6 hours (overfit, the worst)
