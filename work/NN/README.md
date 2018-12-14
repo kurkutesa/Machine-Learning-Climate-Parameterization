@@ -2,14 +2,17 @@
 All *.ipynb* files are in [colab/](./colab/).
 
 # Data Extraction
+### Convert raw data to data of interest in NetCDF
 [extract_data.py](./extract_data.py): raw **DataSet** in *.nc* / *.cdf* -> var of interest **DataSet** in *.cdf*
 
+### Convert data of interest in NetCDF to 2D (flattened) easy-to-read DataFrame-supported .csv
 [colab/netcdf-flattening.ipynb](./colab/colabnetcdf-flattening.ipynb) <- [netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
 
 [netcdf-flattening-6-hour-cumulative-precip.ipynb](./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb): ditto, but apeend the next 6-hour cumulative precipitation as labels
 
 # Classical Machine Learning
 ## Classification - SVM - RBF kernel
+### SVM classifies if it is rainy the next hour (the best classifier)
 - Code: [SVM-1hrlater.ipynb](./SVM-1hrlater.ipynb)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
@@ -18,6 +21,7 @@ All *.ipynb* files are in [colab/](./colab/).
 3. test accuracy = 0.8922
 9. plt.plot = 1D True precipitation plots for both classes separately
 
+### SVM classifies if it is rainy the next 6 hours
 - Code: [SVM-6hrcumul.ipynb](./SVM-6hrcumul.ipynb)
 1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
 1. Classification Threshold = 0.3002
@@ -28,6 +32,7 @@ All *.ipynb* files are in [colab/](./colab/).
 
 # Neural Networks
 ## Regression
+### Naïve NN regression
 - Code: [NN.py](./NN.py)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 2. train_size = 0.75
@@ -41,6 +46,7 @@ All *.ipynb* files are in [colab/](./colab/).
 9. plt.plot = True precipitation vs Predicted precipitation
 
 ## Classification
+### NN classifies if it is rainy the next 6 hours (overfit, the worst)
 - Code: [NN_cumul_class.py](./NN_cumul_class.py)
 1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
 1. Classification Threshold = 0.31
@@ -54,6 +60,7 @@ All *.ipynb* files are in [colab/](./colab/).
 8. learning_rates = [1e-3]#, 1e-5, 1e-6]
 9. plt.plot = True precipitation vs Probability of Raining
 
+### Log reg (r03.0)/ linear SVM (r03.0)/ simple NN (r03.1) classifies if it is rainy the next hour
 - Code: [NN_1hr_class.py](./NN_1hr_class.py)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
@@ -63,7 +70,7 @@ All *.ipynb* files are in [colab/](./colab/).
 5. run_ID = [03.0](./log/03.0); [03.1](./log/03.1)
 5. connections = ['fc']
 7. act_funcs = ['leaky_relu','relu'] #'lr-svmlin']
-8. loss_funcs = ['xent','hinge']#,'square'] - xent and hinge corresponds to logistic reg and linear SVM resp. when no hid layers
+8. loss_funcs = ['xent','hinge']#,'square'] - xent and hinge corresponds to logistic reg and linear SVM resp. when no hid layers (r03.0)
 9. learning_rates = [1e-3]#, 1e-5, 1e-6]
 9. plt.plot = 1D True precipitation plots for both classes separately
 
