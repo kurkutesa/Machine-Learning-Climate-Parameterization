@@ -8,6 +8,7 @@
 - Code: [NN.py](./NN.py)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 2. train_size = 0.75
+3. num_epoch = 100000
 3. n_hid = [n_in = 151, 128, 64, 32, 16, n_out = 1]
 4. run_ID = [01](./log/01)
 5. connections = ['fc'] #, 'bn', 'do'
@@ -22,6 +23,7 @@
 1. Classification Threshold = 0.31
 2. train_size = 0.6
 3. n_hid = [n_in = 151, n_out = 1]
+4. num_epoch = 3000
 4. run_ID = [02.0](./log/02.0); [02.1](./log/02.1); [02.2](./log/02.2)
 5. connections = ['fc']
 6. act_funcs = ['log_reg']#['leaky_relu','relu']
@@ -33,7 +35,7 @@
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
-3. n_hid = [n_in = 151, (5), n_out = 1]
+3. n_hid = [n_in = 151, (5), n_out = 1] - the hid layer exists in some runs only
 4. num_epoch = 3000
 5. run_ID = [03.0](./log/03.0); [03.1](./log/03.1)
 5. connections = ['fc']
