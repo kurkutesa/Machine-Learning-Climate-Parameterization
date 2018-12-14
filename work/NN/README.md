@@ -1,6 +1,5 @@
 # Remarks
 All *.ipynb* files are in [colab/](./colab/).
-Next step: random forest, kNN
 
 # Data Extraction
 ### Convert raw data to data of interest in NetCDF
@@ -10,6 +9,8 @@ Next step: random forest, kNN
 [netcdf-flattening.ipynb](./colab/colabnetcdf-flattening.ipynb) <- [netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
 
 [netcdf-flattening-6-hour-cumulative-precip.ipynb](./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb): ditto, but apeend the next 6-hour cumulative precipitation as labels
+
+[RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb): append RF-predicted class onto dataset in *.csv*. Because of lack of disk quota, I cannot install more packages in the virtual environment. I have requested for more disk quota. (14 Dec 2018)
 
 # Classical Machine Learning
 ## Classification - SVM - RBF kernel
