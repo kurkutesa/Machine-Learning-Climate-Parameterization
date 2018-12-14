@@ -1,7 +1,30 @@
+# Remarks
+All *.ipynb* files are in [colab/](./colab/).
+
 # Data Extraction
 [extract_data.py](./extract_data.py): raw **DataSet** in *.nc* / *.cdf* -> var of interest **DataSet** in *.cdf*
 
-[netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, a direct copy of [colab/netcdf-flattening.ipynb](./colabnetcdf-flattening.ipynb) in *.py*
+[colab/netcdf-flattening.ipynb](./colab/colabnetcdf-flattening.ipynb) <- [netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
+
+[netcdf-flattening-6-hour-cumulative-precip.ipynb](./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb): ditto, but apeend the next 6-hour cumulative precipitation as labels
+
+# Classical Machine Learning
+## Classification - SVM - RBF kernel
+- Code: [SVM-1hrlater.ipynb](./SVM-1hrlater.ipynb)
+1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
+1. Classification Threshold = 0.1
+2. train_size = 0.6
+3. Rainy period ratio = 0.1659 - blind test accuracy = 0.8341
+3. test accuracy = 0.8922
+9. plt.plot = 1D True precipitation plots for both classes separately
+
+- Code: [SVM-6hrcumul.ipynb](./SVM-6hrcumul.ipynb)
+1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
+1. Classification Threshold = 0.3002
+2. train_size = 0.6
+3. Rainy period ratio = 0.4995 - blind test accuracy = 0.5
+3. test accuracy = 0.4672
+9. plt.plot = None
 
 # Neural Networks
 ## Regression
