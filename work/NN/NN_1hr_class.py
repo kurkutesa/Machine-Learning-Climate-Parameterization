@@ -55,7 +55,7 @@ get_ipython().system(u"ls '/tmp'")
 # Read data
 #DATADIR = '/content/gdrive/My Drive/Colab Notebooks/data'
 DATADIR = '../data/forNN'
-f = DATADIR + '/ARM_6hrcumul.csv'
+f = DATADIR + '/ARM_1hrlater.csv'
 df = pd.read_csv(f,index_col=0) # the first column in .csv is index
 
 # Double check NaN does not exist
@@ -65,11 +65,12 @@ print('There are {} NaN in the data.'.format(df.isnull().sum().sum()))
 ####################
 
 # Generate inputs and labels
-input = df.drop(columns='prec_sfc_6hrcumul')
-raw_label = df['prec_sfc_6hrcumul']
+input = df.drop(columns='prec_sfc_1hrlater')
+raw_label = df['prec_sfc_1hrlater']
 
-# >0.31 mm in 6-hour period is counted as rainy
-label = (raw_label.values > 0.31) *1 # ensure it is in int type
+## >0.31 mm in 6-hour period is counted as rainy
+label = (raw_label.values > 0.1) *1 # ensure it is in int type
+print('Rainy period ratio= {:.4f}'.format(label.sum()/label.size))
 
 ####################
 
@@ -112,7 +113,7 @@ toc()
 # Network Parameters
 n_in = x_train.shape[1] # number of input
 n_out = 1 # number of output
-n_hid = [n_in, n_out]
+n_hid = [n_in, 5, n_out]
 
 # Create layer template
 def layer(x, size_in, size_out, act_func, name='layer'):
@@ -150,7 +151,7 @@ summ_epoch = 5
 ####################
 
 # Create NN model
-def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID):
+def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID, text_info):
   LOGDIR = './log/' + hparam
   MODELDIR = LOGDIR + '/model.ckpt'
   tf.reset_default_graph() # clear graph stack
@@ -161,12 +162,11 @@ def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID):
   Y = tf.placeholder("float", [None, n_out], name='labels')
 
   # Layer connection
-  #layer_0 = bn(X, False, 'bn_0')
-  #layer_1 = layer(X, n_in, n_hid[1], act_func,  'layer_1')
+  layer_1 = layer(X, n_in, n_hid[1], act_func,  'layer_1')
   #layer_2 = layer(layer_1, n_hid[1], n_hid[2], act_func, 'layer_2')
   #layer_3 = layer(layer_2, n_hid[2], n_hid[3], act_func, 'layer_3')
   #layer_4 = layer(layer_3, n_hid[3], n_hid[4], act_func, 'layer_4')
-  logit = layer(X, n_in, n_out, 'none', 'layer_logit')
+  logit = layer(layer_1, n_hid[1], n_out, 'none', 'layer_logit')
   with tf.name_scope('layer_out'):
     layer_out = tf.sigmoid(logit)
   with tf.name_scope('predictions'):
@@ -211,7 +211,7 @@ def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID):
   summ_test_accuracy = tf.summary.scalar('test_accuracy', accuracy)
 
   # For first epoch only
-  run_stamp = run_ID + '/ ' + dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' /train_size_{:.2f}'.format(train_size)
+  run_stamp = run_ID + '/ ' + dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' /train_size_{:.2f}'.format(train_size) + ' / {}'.format(text_info)
   summ_stamp = tf.summary.text('run_stamp', tf.convert_to_tensor(run_stamp))
 
   # Draw graph
@@ -257,25 +257,26 @@ def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID):
   print("Model saved in path: {}".format(save_path))
 
   # Test
-  _prob_test = sess.run(layer_out, feed_dict={X: x_test,
+  _pred_test = sess.run(pred, feed_dict={X: x_test,
                                          Y: y_test})
   # Test the training sets
-  _prob_train = sess.run(layer_out, feed_dict={X: x_train,
+  _pred_train = sess.run(pred, feed_dict={X: x_train,
                                           Y: y_train})
   sess.close()
-  return _prob_test, _prob_train
+  return _pred_test, _pred_train
 toc()
 
 ####################
 
 # Network structures
 connections = ['fc']
-act_funcs = ['log_reg']#['leaky_relu','relu']
+act_funcs = ['leaky_relu','relu'] #'lr-svmlin'
 loss_funcs = ['xent','hinge']#,'square']
 learning_rates = [1e-3]#, 1e-5, 1e-6]
 
 # Unique run ID
-run_ID = '02.2'
+run_ID = '03.1'
+text_info = '1hdNN classification on 1_hr_later, threshold_0.1'
 
 ####################
 
@@ -294,25 +295,19 @@ for connection in connections:
       for learning_rate in learning_rates:
         hparam = make_hparam_str(connection, act_func, loss_func, learning_rate, n_hid)
         print('Run model with config ' + hparam)
-        prob_test, prob_train = neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID)
-
-        #np.abs((output_test-y_test)* prec_std + prec_mean).max()
+        pred_test, pred_train = neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID, text_info)
 
         # Plot
+        test_raw_label = raw_label[train_cnt:].values
+        rainy = pred_test == 1
+        print('Predicted number of rainy hours= {}, total hours= {}'.format(rainy.sum(), rainy.size))
         plt.figure()
-        plt.scatter(y_test, prob_test)
-        plt.xlabel('True precipitation')
-        plt.ylabel('Rainy Prob')
-        #axes = plt.gca()
-        #axes.set_xlim([0,20])
-        #axes.set_ylim([0,20])
+        plt.scatter(test_raw_label[rainy[:,0]], np.zeros(test_raw_label[rainy[:,0]].size) + .5, c='blue', label='rainy')
+        plt.scatter(test_raw_label[~rainy[:,0]], np.zeros(test_raw_label[~rainy[:,0]].size), c='red', label='dry')
+        axes = plt.gca()
+        axes.set_ylim([-.5,1])
+        axes.legend()
         plt.savefig('./log/' + hparam + '/test.eps')
-        # Plot training data
-        plt.figure()
-
-        plt.scatter(y_train, prob_train)
-
-        plt.savefig('./log/' + hparam + '/train.eps')
 
 ####################
 
