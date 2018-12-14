@@ -60,7 +60,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 9. plt.plot = True precipitation vs Predicted precipitation
 9. ***LeakyReLU-sqloss-1e-3* mean abs loss = 1.131 < other config**, tends to all collapse to zero due to imbalanced data
 
-## NN regression after RF binary classification
+### NN regression after RF binary classification
 - Code: [NN_after_RF_1hr.py](./NN_after_RF_1hr.py)
 1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/forNN/)
 2. train_size = 0.6 - have to follow RF config in [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
