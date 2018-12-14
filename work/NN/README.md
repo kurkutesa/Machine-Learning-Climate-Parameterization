@@ -7,14 +7,14 @@ Next step: random forest, kNN
 [extract_data.py](./extract_data.py): raw **DataSet** in *.nc* / *.cdf* -> var of interest **DataSet** in *.cdf*
 
 ### Convert data of interest in NetCDF to 2D (flattened) easy-to-read DataFrame-supported .csv
-[./colab/netcdf-flattening.ipynb](./colab/colabnetcdf-flattening.ipynb) <- [netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
+[netcdf-flattening.ipynb](./colab/colabnetcdf-flattening.ipynb) <- [netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
 
-[./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb](./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb): ditto, but apeend the next 6-hour cumulative precipitation as labels
+[netcdf-flattening-6-hour-cumulative-precip.ipynb](./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb): ditto, but apeend the next 6-hour cumulative precipitation as labels
 
 # Classical Machine Learning
 ## Classification - SVM - RBF kernel
 ### SVM classifies if it is rainy the next hour (the best classifier)
-- Code: [./colab/SVM-1hrlater.ipynb](./SVM-1hrlater.ipynb)
+- Code: [./colab/SVM-1hrlater.ipynb](./colab/SVM-1hrlater.ipynb)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
@@ -23,7 +23,7 @@ Next step: random forest, kNN
 9. plt.plot = 1D True precipitation plots for both classes separately
 
 ### SVM classifies if it is rainy the next 6 hours
-- Code: [./colab/SVM-6hrcumul.ipynb](./SVM-6hrcumul.ipynb)
+- Code: [./colab/SVM-6hrcumul.ipynb](./colab/SVM-6hrcumul.ipynb)
 1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
 1. Classification Threshold = 0.3002
 2. train_size = 0.6
