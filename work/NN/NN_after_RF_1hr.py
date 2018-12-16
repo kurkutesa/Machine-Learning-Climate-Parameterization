@@ -282,7 +282,7 @@ loss_funcs = ['square', 'quartic']
 learning_rates = [1e-3, 1e-4]
 
 # Unique run ID
-run_ID = '04.1'
+run_ID = '04.2'
 text_info = 'regression after RF classification (with threshold_0)'
 
 ####################
