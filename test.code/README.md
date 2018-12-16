@@ -59,7 +59,7 @@ git log
 ## Python
 ### *xarray* Basics
 ```
-ncdump
+ncdump -h
 ncview
 
 import xarray as xr
