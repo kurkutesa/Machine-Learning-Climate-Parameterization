@@ -8,7 +8,7 @@ source activate venv
 
 source deactivate
 ```
-## DataStore Directory
+### DataStore Directory
 ```
 cd /exports/csce/datastore/geos/users/$USER/GitHub/Machine-Learning-Climate-Parameterization/work/NN/
 ```
