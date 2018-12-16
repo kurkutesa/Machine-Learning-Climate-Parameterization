@@ -24,6 +24,13 @@ localhost:6006
 ipython nbconvert <file.ipynb> --to python
 ```
 
+## Eddie
+```
+qsub
+qstat
+rsync
+```
+
 ## Git Basics
 ### Creation
 ```
@@ -52,6 +59,9 @@ git log
 ## Python
 ### *xarray* Basics
 ```
+ncdump
+ncview
+
 import xarray as xr
 DS = xr.open_dataset('data.cdf')
 DS = xr.open_mfdataset('*.cdf')
