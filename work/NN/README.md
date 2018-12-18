@@ -62,11 +62,11 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 
 ### NN regression after RF binary classification
 - Code: [NN_after_RF_1hr.py](./NN_after_RF_1hr.py)
-1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/forNN/)
+1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/forNN/); [ARM_1hrlater_RFclassified_threshold_0.05.csv](../data/forNN/)
 2. train_size = 0.6 - have to follow RF config in [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
 3. num_epoch = 100000
 3. n_hid = [n_in = 151, 128, 64, 32, 16, n_out = 1]
-4. run_ID = [04.1](./log/04.1)
+4. run_ID = [04.1](./log/04.1); [05.1](./log/05.1)
 5. connections = ['fc']#, 'bn', 'do']
 6. act_funcs = ['relu', 'leaky_relu']
 1. loss_funcs = ['square', 'quartic']
