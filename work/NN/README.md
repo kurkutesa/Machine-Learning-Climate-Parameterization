@@ -72,7 +72,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 1. loss_funcs = ['square', 'quartic']
 1. learning_rates = [1e-3, 1e-4]
 9. plt.plot = True precipitation vs Predicted precipitation in 2 colours (each for each RF class)
-9. r04.1: threshold = 0, **ReLU-sqloss-1e-3* mean abs loss = 0.8082 > other config**
+9. r04.1: threshold = 0, ***ReLU-sqloss-1e-3* mean abs loss = 0.8082 > other config**
 9. r05.1: threshold = 0.05, **RUNNING**
 
 ## Classification
