@@ -36,10 +36,10 @@
 ### RF classifies if it is rainy the next hour (the best classifier)
 - Code: [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
-1. Classification Threshold = 0.1/ 0
+1. Classification Threshold = 0.1/ 0/ 0.05
 2. train_size = 0.6
-3. Rainy period ratio = 0.1659/ 0.4869 - blind test accuracy = 0.8341/ 0.5131
-3. **test accuracy = 0.9/ 0.85 !!!**
+3. Rainy period ratio = 0.1659/ 0.4869/ 0.3183 - blind test accuracy = 0.8341/ 0.5131/ 0.6817
+3. **test accuracy = 0.9/ 0.85/ 0.88 !!!**
 9. plt.plot = 1D True precipitation plots for both classes separately
 
 # Neural Networks
