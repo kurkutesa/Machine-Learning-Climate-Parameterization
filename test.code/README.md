@@ -32,6 +32,13 @@ rsync
 git init
 git clone https://github.com/edenau/<repo.git>
 ```
+### Remote Link
+```
+git remote -v
+git remote add upstream <upstream-repo.git>
+git fetch upstream
+git merge upstream/gh-pages
+```
 ### Pull
 ```
 git fetch
