@@ -21,6 +21,7 @@ localhost:6006
 
 ## Eddie
 ```
+ssh <UUN>@eddie3.ecdf.ed.ac.uk
 qsub
 qstat
 rsync
