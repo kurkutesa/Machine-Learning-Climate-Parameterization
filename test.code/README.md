@@ -30,7 +30,7 @@ rsync
 ## Git Basics
 ### Creation
 ```
-git init
+git init <new_repo>
 git clone https://github.com/edenau/<repo.git>
 ```
 ### Remote Link
@@ -50,6 +50,7 @@ git pull origin <branch>
 ```
 git status
 git add -A
+git reset <file>
 git commit -m "MESSAGE"
 git push -u origin master
 ```
