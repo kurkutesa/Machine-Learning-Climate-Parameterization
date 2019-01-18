@@ -11,6 +11,7 @@ source deactivate
 ### DataStore Directory
 ```
 cd /exports/csce/datastore/geos/users/$USER/GitHub/Machine-Learning-Climate-Parameterization/work/NN/
+gio open .
 ```
 
 ### Tensorboard
@@ -21,6 +22,7 @@ localhost:6006
 
 ## Eddie
 ```
+ssh <UUN>@eddie3.ecdf.ed.ac.uk
 qsub
 qstat
 rsync
@@ -29,8 +31,15 @@ rsync
 ## Git Basics
 ### Creation
 ```
-git init
+git init <new_repo>
 git clone https://github.com/edenau/<repo.git>
+```
+### Remote Link
+```
+git remote -v
+git remote add upstream <upstream-repo.git>
+git fetch upstream
+git merge upstream/gh-pages
 ```
 ### Pull
 ```
@@ -42,6 +51,7 @@ git pull origin <branch>
 ```
 git status
 git add -A
+git reset <file>
 git commit -m "MESSAGE"
 git push -u origin master
 ```
