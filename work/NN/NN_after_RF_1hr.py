@@ -56,7 +56,7 @@ get_ipython().system(u"ls '/tmp'")
 # Read data
 #DATADIR = '/content/gdrive/My Drive/Colab Notebooks/data'
 DATADIR = '../data/forNN'
-f = DATADIR + '/ARM_1hrlater_RFclassified.csv'
+f = DATADIR + '/ARM_1hrlater_RFclassified_threshold_0.05.csv'
 df = pd.read_csv(f,index_col=0) # the first column in .csv is index
 
 # Double check NaN does not exist
@@ -282,8 +282,8 @@ loss_funcs = ['square', 'quartic']
 learning_rates = [1e-3, 1e-4]
 
 # Unique run ID
-run_ID = '04.2'
-text_info = 'regression after RF classification (with threshold_0)'
+run_ID = '05.1'
+text_info = 'regression after RF classification (with threshold_0.05)'
 
 ####################
 
