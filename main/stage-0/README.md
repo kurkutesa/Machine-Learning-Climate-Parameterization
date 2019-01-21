@@ -24,7 +24,7 @@
 ## Classification - SVM - RBF kernel
 ### SVM classifies if it is rainy the next hour (the second best classifier)
 - Code: [SVM-1hrlater.ipynb](./colab/SVM-1hrlater.ipynb)
-1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
+1. DATADIR = [ARM_1hrlater.csv](../data/stage-0_cleaned/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
 3. Rainy period ratio = 0.1659/ 0.4869 - blind test accuracy = 0.8341/ 0.5131
@@ -33,7 +33,7 @@
 
 ### SVM classifies if it is rainy the next 6 hours
 - Code: [SVM-6hrcumul.ipynb](./colab/SVM-6hrcumul.ipynb)
-1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
+1. DATADIR = [ARM_6hrcumul.csv](../data/stage-0_cleaned/)
 1. Classification Threshold = 0.3002
 2. train_size = 0.6
 3. Rainy period ratio = 0.4995 - blind test accuracy = 0.5
@@ -43,7 +43,7 @@
 ## Classification - Random Forest
 ### RF classifies if it is rainy the next hour (the best classifier)
 - Code: [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
-1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
+1. DATADIR = [ARM_1hrlater.csv](../data/stage-0_cleaned/)
 1. Classification Threshold = 0.1/ 0/ 0.05
 2. train_size = 0.6
 3. Rainy period ratio = 0.1659/ 0.4869/ 0.3183 - blind test accuracy = 0.8341/ 0.5131/ 0.6817
@@ -56,7 +56,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 ## Regression
 ### Naïve NN regression
 - Code: [NN.py](./code/ML/NN.py)
-1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
+1. DATADIR = [ARM_1hrlater.csv](../data/stage-0_cleaned/)
 2. train_size = 0.75
 3. num_epoch = 100000
 3. n_hid = [n_in = 151, 128, 64, 32, 16, n_out = 1]
@@ -69,8 +69,8 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 9. ***LeakyReLU-sqloss-1e-3* mean abs loss = 1.131 < other config**, tends to all collapse to zero due to imbalanced data
 
 ### NN regression after RF binary classification
-- Code: [NN_after_RF_1hr.py](./code/NN_after_RF_1hr.py)
-1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/forNN/); [ARM_1hrlater_RFclassified_threshold_0.05.csv](../data/forNN/)
+- Code: [NN_after_RF_1hr.py](./code/ML/NN_after_RF_1hr.py)
+1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/stage-0_cleaned/); [ARM_1hrlater_RFclassified_threshold_0.05.csv](../data/stage-0_cleaned/)
 2. train_size = 0.6 - have to follow RF config in [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
 3. num_epoch = 100000
 3. n_hid = [n_in = 151, 128, 64, 32, 16, n_out = 1]
@@ -86,7 +86,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 ## Classification
 ### NN/ Log reg classifies if it is rainy the next 6 hours (overfit, the worst)
 - Code: [NN_cumul_class.py](./code/ML/NN_cumul_class.py)
-1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
+1. DATADIR = [ARM_6hrcumul.csv](../data/stage-0_cleaned/)
 1. Classification Threshold = 0.31
 2. train_size = 0.6
 3. n_hid = [n_in = 151, n_out = 1]
@@ -103,7 +103,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 
 ### Log reg (r03.0)/ linear SVM (r03.0)/ simple 1-hid-layer NN (r03.1) classifies if it is rainy the next hour
 - Code: [NN_1hr_class.py](./code/ML/NN_1hr_class.py)
-1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
+1. DATADIR = [ARM_1hrlater.csv](../data/stage-0_cleaned/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
 3. n_hid = [n_in = 151, (5), n_out = 1] - the hid layer exists in some runs only
