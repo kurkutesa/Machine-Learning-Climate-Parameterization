@@ -1,5 +1,5 @@
 # Summary
-- Predict precipitation at ARM TWP-C1 an hour later (I tried 6 hours later as well) using *in situ* measurement data
+## Predict precipitation at ARM TWP-C1 an hour later (tried 6 hours later as well) using *in situ* measurement data
 - Input data: T_p, rh_p, u_p, v_p, prec_sfc, (t_cos, t_sin)
 - Method: NN (4 hidden layers), RF+NN
 
