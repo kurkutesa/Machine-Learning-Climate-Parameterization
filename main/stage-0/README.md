@@ -1,3 +1,5 @@
+# Sept 2018 - Jan 2019
+
 # Summary
 ## Predict precipitation at ARM TWP-C1 an hour later (tried 6 hours later as well) using *in situ* measurement data
 - Input data: **T_p, rh_p, u_p, v_p, prec_sfc, (t_cos, t_sin)**
