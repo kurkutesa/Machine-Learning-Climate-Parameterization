@@ -12,6 +12,7 @@ source deactivate
 ```
 cd /exports/csce/datastore/geos/users/$USER/GitHub/Machine-Learning-Climate-Parameterization/work/NN/
 gio open .
+wget -m <ftp-link>
 ```
 
 ### Tensorboard
