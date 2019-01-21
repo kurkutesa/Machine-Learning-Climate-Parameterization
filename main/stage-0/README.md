@@ -1,6 +1,6 @@
 # Summary
 ## Predict precipitation at ARM TWP-C1 an hour later (tried 6 hours later as well) using *in situ* measurement data
-- Input data: T_p, rh_p, u_p, v_p, prec_sfc, (t_cos, t_sin)
+- Input data: **T_p, rh_p, u_p, v_p, prec_sfc, (t_cos, t_sin)**
 - Method: NN (4 hidden layers), RF+NN
 - Problem: it tries to predict most events as no precipitation events
 - Suspect: current input data cannot fully capture the dynamics, and data is imbalanced (precip vs no precip, hour imbalance)
