@@ -5,13 +5,15 @@ This is an on-going project with the aim to parameterize subgrid climate process
 ## Directories
 * [main/](./main/) contains files related to the project.
 
+* [main/stage-1/](./main/stage-1/) is the current working stage.
+
+* [main/stage-0/](./main/stage-0/) contains 0th stage machine learning-related codes using *TensorFlow* package.
+
+* [main/stage-0/colab/](./main/stage-0/colab/) contains those machine learning-related codes in .ipynb format, optimzied for [Google Colaboratory](https://colab.research.google.com/) environment. They have same functionalities with .py equivalents, with minor code difference taking into account different environments. I am building codes to enable automatic conversion between .py and .ipynb files, as I leveraged both envionments for various tasks.
+
 * [UM.teaching/](./UM.teaching/) contains python codes for teaching purpose. It demonstrates basic *xarray* operations to analyze data with netCDF format.
 
 * [test.code/](./test.code/) contains python codes to test if all required python packages are intalled in your own environment.
-
-* [main/stage-0/](./main/stage-0/) contains 0th stage machine learning-related codes using *TensorFlow* package. Click [here](./main/stage-0/README.md) to find out more. 
-
-* [main/stage-0/colab/](./main/stage-0/colab/) contains those machine learning-related codes in .ipynb format, optimzied for [Google Colaboratory](https://colab.research.google.com/) environment. They have same functionalities with .py equivalents, with minor code difference taking into account different environments. I am building codes to enable automatic conversion between .py and .ipynb files, as I leveraged both envionments for various tasks.
 
 * Note that all raw data in NetCDF format are not available in the repo as they all exceed GitHub file size limit (100 MB). Some TensorFlow event files with file names *events.out.tfevents.\** exceed that limit, and thus all of them are not uploaded by simple command in *.gitignore* at the moment.
 
