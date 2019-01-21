@@ -2,6 +2,8 @@
 ## Predict precipitation at ARM TWP-C1 an hour later (tried 6 hours later as well) using *in situ* measurement data
 - Input data: T_p, rh_p, u_p, v_p, prec_sfc, (t_cos, t_sin)
 - Method: NN (4 hidden layers), RF+NN
+- Problem: it tries to predict most events as no precipitation events
+- Suspect: current input data cannot fully capture the dynamics, and data is imbalanced (precip vs no precip, hour imbalance)
 
 # Remarks
 - All *.ipynb* files are in [colab/](./colab/).
@@ -9,10 +11,10 @@
 - From Run 04.\*, run version \*.0 is reserved for testground.
 # Data Extraction
 ### Convert raw data to data of interest in NetCDF
-[extract_data.py](./extract_data.py): raw **DataSet** in *.nc* / *.cdf* -> var of interest **DataSet** in *.cdf*
+[extract_data.py](./code/extract_data.py): raw **DataSet** in *.nc* / *.cdf* -> var of interest **DataSet** in *.cdf*
 
 ### Convert data of interest in NetCDF to 2D (flattened) easy-to-read DataFrame-supported .csv
-[netcdf-flattening.ipynb](./colab/colabnetcdf-flattening.ipynb) <- [netcdf-flattening.py](./netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
+[netcdf-flattening.ipynb](./colab/netcdf-flattening.ipynb) <- [netcdf-flattening.py](./code/netcdf-flattening.py): var of interest in *.cdf* -> flattened two-dimensional (pandas) **DataFrame** in *.csv*, append the next hour precipitation as labels
 
 [netcdf-flattening-6-hour-cumulative-precip.ipynb](./colab/netcdf-flattening-6-hour-cumulative-precip.ipynb): ditto, but apeend the next 6-hour cumulative precipitation as labels
 
@@ -53,7 +55,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 
 ## Regression
 ### Naïve NN regression
-- Code: [NN.py](./NN.py)
+- Code: [NN.py](./code/NN.py)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 2. train_size = 0.75
 3. num_epoch = 100000
@@ -67,7 +69,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 9. ***LeakyReLU-sqloss-1e-3* mean abs loss = 1.131 < other config**, tends to all collapse to zero due to imbalanced data
 
 ### NN regression after RF binary classification
-- Code: [NN_after_RF_1hr.py](./NN_after_RF_1hr.py)
+- Code: [NN_after_RF_1hr.py](./code/NN_after_RF_1hr.py)
 1. DATADIR = [ARM_1hrlater_RFclassified.csv](../data/forNN/); [ARM_1hrlater_RFclassified_threshold_0.05.csv](../data/forNN/)
 2. train_size = 0.6 - have to follow RF config in [RF-1hrlater.ipynb](./colab/RF-1hrlater.ipynb)
 3. num_epoch = 100000
@@ -83,7 +85,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 
 ## Classification
 ### NN/ Log reg classifies if it is rainy the next 6 hours (overfit, the worst)
-- Code: [NN_cumul_class.py](./NN_cumul_class.py)
+- Code: [NN_cumul_class.py](./code/NN_cumul_class.py)
 1. DATADIR = [ARM_6hrcumul.csv](../data/forNN/)
 1. Classification Threshold = 0.31
 2. train_size = 0.6
@@ -100,7 +102,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 9. r02.2: ***Hinge==linSVM* accuracy = 0.5525 > 0.5473 = *xEnt==LogReg* accuracy**
 
 ### Log reg (r03.0)/ linear SVM (r03.0)/ simple 1-hid-layer NN (r03.1) classifies if it is rainy the next hour
-- Code: [NN_1hr_class.py](./NN_1hr_class.py)
+- Code: [NN_1hr_class.py](./code/NN_1hr_class.py)
 1. DATADIR = [ARM_1hrlater.csv](../data/forNN/)
 1. Classification Threshold = 0.1
 2. train_size = 0.6
