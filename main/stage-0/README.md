@@ -1,5 +1,11 @@
+# Summary
+- Predict precipitation at ARM TWP-C1 an hour later (I tried 6 hours later as well) using *in situ* measurement data
+- Input data: T_p, rh_p, u_p, v_p, prec_sfc, (t_cos, t_sin)
+- Method: NN (4 hidden layers), RF+NN
+
 # Remarks
 - All *.ipynb* files are in [colab/](./colab/).
+- From Run 02.\*, run version includes a .\* at the end.
 - From Run 04.\*, run version \*.0 is reserved for testground.
 # Data Extraction
 ### Convert raw data to data of interest in NetCDF
