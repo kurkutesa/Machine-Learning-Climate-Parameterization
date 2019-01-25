@@ -21,6 +21,14 @@ python -m tensorboard.main --logdir=./log/<runID>
 localhost:6006
 ```
 
+## PUMA
+```
+ssh -Y <UUN>@puma.nerc.ac.uk
+
+ssh -l <k...> login.archer.ac.uk
+ 
+```
+
 ## Eddie
 ```
 ssh <UUN>@eddie3.ecdf.ed.ac.uk
