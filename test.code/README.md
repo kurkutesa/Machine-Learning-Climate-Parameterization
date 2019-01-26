@@ -28,6 +28,8 @@ umui &
 rosie go &
 ssh -l <k...> login.archer.ac.uk
 qstat -u <k...>
+
+grep -r <search> .
 ```
 
 ## Eddie
