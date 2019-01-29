@@ -5,7 +5,7 @@ Abs loss is de-normalized, and is not used as a loss metric. Other regression lo
 
 ## Regression
 ### NN regression
-- Code: [NN.py](./code/ML/NN.py)
+- Code: [regression.py](./code/ML/regression.py)
 1. DATADIR = [twparmbeatmC1_no_nan.csv](../data/stage-1_cleaned/)
 2. train_size = 0.70
 3. num_epoch = 100000
