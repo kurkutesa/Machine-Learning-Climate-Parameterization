@@ -114,7 +114,7 @@ with tf.Session() as sess:
 # Network Parameters
 n_in = x_train.shape[1] # number of input
 n_out = y_train.shape[1] # number of output
-n_hid = [n_in, n_out]
+n_hid = [n_in, 8, n_out]
 
 # Create layer template
 def layer(x, size_in, size_out, act_func, name='layer'):
@@ -139,7 +139,7 @@ def layer(x, size_in, size_out, act_func, name='layer'):
       with tf.name_scope('leaky_relu'):
         _layer = tf.nn.leaky_relu(_layer, alpha=0.1)
         tf.summary.histogram('leaky_relu', _layer)
-    return _layer
+    return _layer, weight
 
 ####################
 
@@ -165,8 +165,8 @@ def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID, t
   Y = tf.placeholder("float", [None, n_out], name='labels')
 
   # Layer connection
-  layer_out = layer(X, n_in, n_out, act_func,  'layer_out')
-  #layer_out = layer(layer_1, n_hid[1], n_out, 'none', 'layer_out')
+  layer_1, w_in_1 = layer(X, n_in, n_hid[1], act_func,  'layer_1')
+  layer_out, w_1_out = layer(layer_1, n_hid[1], n_out, 'none', 'layer_out')
 
   # True data information
   with tf.name_scope('constant'):
@@ -177,8 +177,11 @@ def neural_net(connection, act_func, loss_func, learning_rate, hparam, run_ID, t
   with tf.name_scope('losses'):
     if loss_func == 'quartic':
       loss = tf.reduce_mean(tf.square(tf.square(layer_out - Y)), name=loss_func+'_loss') # mean-quartic-error
-    elif loss_func == 'square':
-      loss = tf.reduce_mean(tf.square(layer_out - Y), name=loss_func+'_loss') # mean-square-error
+    elif loss_func == 'square_l2':
+      pure_loss = tf.reduce_mean(tf.square(layer_out - Y)) # mean-square-error
+      regularizer = tf.nn.l2_loss(w_in_1) + tf.nn.l2_loss(w_1_out)
+      beta = 0.01
+      loss = tf.reduce_mean(pure_loss + beta * regularizer, name=loss_func+'_loss')
 
   with tf.name_scope('denorm_abs_losses'):
     abs_loss = tf.reduce_mean(tf.multiply(tf.abs(layer_out - Y), _prec_std) + _prec_mean, name='abs_loss') # De-normalized mean loss
@@ -254,12 +257,12 @@ toc()
 # Network structures
 connections = ['fc']#, 'bn', 'do']
 act_funcs = ['relu']#, 'leaky_relu']
-loss_funcs = ['square']#, 'quartic']
+loss_funcs = ['square_l2']#, 'quartic']
 learning_rates = [1e-3]#, 1e-4]
 
 # Unique run ID
-run_ID = '11.2'
-text_info = 'pure regression'
+run_ID = '11.4'
+text_info = '1 hid layer regression with l2 reg beta=0.01'
 
 ####################
 
