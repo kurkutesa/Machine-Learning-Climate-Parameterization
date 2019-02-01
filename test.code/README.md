@@ -32,6 +32,11 @@ qstat -u <k...>
 grep -r <search> .
 ```
 
+```
+ps -flu <UUN> | grep <SUITE>
+kill -9 <PID>
+```
+
 ## Eddie
 ```
 ssh <UUN>@eddie3.ecdf.ed.ac.uk
