@@ -39,6 +39,7 @@ kill -9 <PID>
 
 ## Eddie
 ```
+ssh -Y eddie
 ssh <UUN>@eddie3.ecdf.ed.ac.uk
 qsub
 qstat
