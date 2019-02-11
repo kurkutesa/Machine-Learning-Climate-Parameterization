@@ -46,6 +46,12 @@ qstat
 rsync
 ```
 
+## Fix Rosie Go on Eddie
+Add the following line at the bottom of ~/.bashrc
+```
+export PATH="$PATH:/exports/csce/eddie/geos/groups/cesd/sw/rose/bin"
+```
+
 ## Git Basics
 ### Creation
 ```
