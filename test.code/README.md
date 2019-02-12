@@ -3,6 +3,7 @@
 ## Burn Server
 ### Virtual Environment
 ```
+ssh burn
 export PATH="/scratch/$USER/miniconda/base/bin:$PATH"
 source activate venv
 
