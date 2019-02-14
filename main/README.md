@@ -1,8 +1,11 @@
-# Work to do next - Stage 1
+# Stage 1
 
-- Drop u_p, v_p
-- Add more input variables - T_sfc, rh_sfc, shartwave downwelling irradiance, LH, SH
+- Added more input variables - T_sfc, rh_sfc, (shortwave downwelling irradiance)
+- Used keras for CNN
 
-- Combine RF-NN in stage-1 (and use seed 42 for sklearn shuffle for reproducibility).
-- Automate .py <-> .ipynb conversion.
-- Save weights of NNs.
+
+# Stage 2
+
+
+- Combine RF-NN in stage-1
+
