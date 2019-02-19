@@ -11,7 +11,7 @@ source deactivate
 ```
 ### DataStore Directory
 ```
-cd /exports/csce/datastore/geos/users/$USER/GitHub/Machine-Learning-Climate-Parameterization/main/stage-1/
+cd /exports/csce/datastore/geos/users/$USER/GitHub/Machine-Learning-Climate-Parameterization/main/
 gio open .
 wget -m <ftp-link>
 ```
