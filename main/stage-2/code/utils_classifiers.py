@@ -362,3 +362,38 @@ def Voting(data, models, model_name, weights='None', how_to_vote='hard'):
     f1 = reports(test_y, test_y_hat)
 
     return vote, f1
+
+###################################
+## Stacking (different output format!!)
+
+def f1_macro_metric(test_y, test_y_hat):
+    return f1_score(test_y, test_y_hat, average='macro')
+
+
+def Stacking_op(data, models, seed=seed):
+    train_x, test_x, train_y, test_y = data
+
+    from vecstack import stacking
+    train_S, test_S = stacking(models,
+                               train_x, train_y, test_x,
+                               regression=False,
+                               mode='oof_pred_bag',
+                               needs_proba=False,
+                               save_dir=None,
+                               metric=f1_macro_metric,
+                               n_folds=5,
+                               stratified=False,
+                               shuffle=False,
+                               random_state=seed,
+                               verbose=2)
+    from utils import standardize
+    train_S, test_S, _, _ = standardize(train_S, test_S, test_S)
+    return train_S, test_S
+
+
+def Stacking(data, models, final_model, final_model_name='Stacking', seed=seed):
+    train_x, test_x, train_y, test_y = data
+    train_S, test_S = Stacking_op(data, models, seed=seed)
+    S_data = [train_S, test_S, train_y, test_y]
+    stacking = Classifier(final_model_name, final_model(S_data))
+    return stacking

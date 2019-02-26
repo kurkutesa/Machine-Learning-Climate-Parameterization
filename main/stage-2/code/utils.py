@@ -3,6 +3,8 @@ import pandas as pd
 import xarray as xr
 import matplotlib.pyplot as plt
 import seaborn as sns
+from classes import Sample, SampleSubset, Scaler
+seed = 42
 
 ###################################
 ## DS operations
@@ -52,6 +54,15 @@ def DS_flatten(DS, str_1d, str_2d):
 
     return DS_flattened
 
+
+def DS_mark_outliers(DS, bool_list, da_name='outliers'):
+    outliers = xr.DataArray([{True: np.nan, False:1}[boolean] for boolean in bool_list], dims='time', name=da_name)
+    return xr.merge([DS,outliers]).dropna(dim='time')
+
+
+def get_DS_plev(DS):
+    return DS['p'].values.astype(float)
+
 ###################################
 ## Data extraction (DS2df)
 
@@ -72,19 +83,37 @@ def merge_channels(DS, str_Xvec):
     return X_conv
 
 ###################################
-## Data standardization
+## Data split
 
 
-def standardize(train, test):
+def split(ss, train_size, seed=seed):
+    from sklearn.model_selection import train_test_split
+    train_bin, test_bin, train_y, test_y, train_Xscalar, test_Xscalar, train_Xvec, test_Xvec = train_test_split(ss.bin, ss.y, ss.Xscalar, ss.Xvec,
+                                                                                                                            train_size=train_size,
+                                                                                                                            random_state=seed,
+                                                                                                                            shuffle=True,
+                                                                                                                            stratify=ss.bin)
+    return SampleSubset(train_bin, train_y, train_Xscalar, train_Xvec), SampleSubset(test_bin, test_y, test_Xscalar, test_Xvec)
+
+###################################
+## Data standardization, z-score
+
+
+def standardize(train, valid, test):
     from sklearn.preprocessing import StandardScaler
     scaler = StandardScaler()
 
     train = scaler.fit_transform(train)
-    test = scaler.transform(test)
-    return train, test, scaler
+    valid, test = scaler.transform(valid), scaler.transform(test)
+    return train, valid, test, scaler
 
 
-def standardize_3d(train, test):
+def inverse_standardize(data, scaler):
+    from sklearn.preprocessing import StandardScaler
+    return scaler.inverse_transform(data)
+
+
+def standardize_3d(train, valid, test):
     from sklearn.preprocessing import StandardScaler
     scalers = {}
     for i in range(train.shape[2]):
@@ -92,9 +121,29 @@ def standardize_3d(train, test):
         train[:, :, i] = scalers[i].fit_transform(train[:, :, i])
 
     for i in range(test.shape[2]):
+        valid[:, :, i] = scalers[i].transform(valid[:, :, i])
         test[:, :, i] = scalers[i].transform(test[:, :, i])
 
-    return train, test, scalers
+    return train, valid, test, scalers
+
+
+def standardize_all(s):
+    train_bin, validation_bin, test_bin = s.train.bin, s.validation.bin, s.test.bin
+    train_y, validation_y, test_y, scaler_y = standardize(s.train.y, s.validation.y, s.test.y)
+    train_Xscalar, validation_Xscalar, test_Xscalar, scaler_Xscalar = standardize(s.train.Xscalar, s.validation.Xscalar, s.test.Xscalar)
+    train_Xvec, validation_Xvec, test_Xvec, scaler_Xvec = standardize_3d(s.train.Xvec, s.validation.Xvec, s.test.Xvec)
+    return Sample(SampleSubset(train_bin, train_y, train_Xscalar, train_Xvec), SampleSubset(validation_bin, validation_y, validation_Xscalar, validation_Xvec), SampleSubset(test_bin, test_y, test_Xscalar, test_Xvec), Scaler(scaler_y, scaler_Xscalar, scaler_Xvec))
+
+
+def abs_zscore_cut(da, percentile):
+    from scipy.stats import zscore
+    return np.percentile(np.abs(zscore(da)), percentile)
+
+
+def abs_zscore(da):
+    from scipy.stats import zscore
+    return np.abs(zscore(da))
+
 
 ###################################
 ## Data flattening (numpy)
@@ -108,14 +157,22 @@ def flattening(Xscalar, Xvec):
     return X, boundary
 
 
+def flattening_all(s):
+    s.train.Xflatten, s.train.Xboundary = flattening(s.train.Xscalar, s.train.Xvec)
+    s.validation.Xflatten, s.validation.Xboundary = flattening(s.validation.Xscalar, s.validation.Xvec)
+    s.test.Xflatten, s.test.Xboundary = flattening(s.test.Xscalar, s.test.Xvec)
+    return s
+
+
 def unflattening(X, boundary):
-    Xscalar = X[:,0:boundary[0]]
-    boundary.append(X.shape[1])
+    b = boundary.copy()
+    Xscalar = X[:,0:b[0]]
+    b.append(X.shape[1])
 
-    Xvec = np.expand_dims(X[:,boundary[0]:boundary[1]], axis=2)
+    Xvec = np.expand_dims(X[:,b[0]:b[1]], axis=2)
 
-    for i in range(1,len(boundary)-1):
-        X_temp = np.expand_dims(X[:,boundary[i]:boundary[i+1]], axis=2)
+    for i in range(1,len(b)-1):
+        X_temp = np.expand_dims(X[:,b[i]:b[i+1]], axis=2)
         Xvec = np.append(Xvec, X_temp, axis=2)
 
     return Xscalar, Xvec
