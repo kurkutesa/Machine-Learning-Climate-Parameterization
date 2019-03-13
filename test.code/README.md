@@ -4,8 +4,7 @@
 ### Virtual Environment
 ```
 ssh burn
-export PATH="/scratch/$USER/miniconda/base/bin:$PATH"
-export PATH="/scratch/$USER/matlab-api"
+export PATH="/scratch/$USER/miniconda/base/bin:/scratch/$USER/matlab-api:$PATH"
 source activate venv
 
 source deactivate
