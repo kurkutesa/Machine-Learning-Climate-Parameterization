@@ -5,6 +5,7 @@
 ```
 ssh burn
 export PATH="/scratch/$USER/miniconda/base/bin:$PATH"
+export PATH="/scratch/$USER/matlab-api"
 source activate venv
 
 source deactivate
