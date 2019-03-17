@@ -273,3 +273,41 @@ def plot_corr(df, annotate=False):
     plt.title('Correlation matrix', fontsize=15)
     plt.show()
     return None
+
+
+###################################
+## Sample concatenation
+
+
+def shuffle_ss(ss):
+    shuffle_index = np.random.permutation(ss.size)
+    ss.bin = ss.bin[shuffle_index]
+    ss.y = ss.y[shuffle_index]
+    ss.Xscalar = ss.Xscalar[shuffle_index]
+    ss.Xvec = ss.Xvec[shuffle_index]
+    return ss
+
+
+def sample_concat(s_list, shuffle=False):
+    train_bin = np.concatenate(tuple([s.train.bin for s in s_list]), axis=0)
+    train_y = np.concatenate(tuple([s.train.y for s in s_list]), axis=0)
+    train_Xscalar = np.concatenate(tuple([s.train.Xscalar for s in s_list]), axis=0)
+    train_Xvec = np.concatenate(tuple([s.train.Xvec for s in s_list]), axis=0)
+    ss_train = SampleSubset(train_bin, train_y, train_Xscalar, train_Xvec)
+
+    validation_bin = np.concatenate(tuple([s.validation.bin for s in s_list]), axis=0)
+    validation_y = np.concatenate(tuple([s.validation.y for s in s_list]), axis=0)
+    validation_Xscalar = np.concatenate(tuple([s.validation.Xscalar for s in s_list]), axis=0)
+    validation_Xvec = np.concatenate(tuple([s.validation.Xvec for s in s_list]), axis=0)
+    ss_validation = SampleSubset(validation_bin, validation_y, validation_Xscalar, validation_Xvec)
+
+    test_bin = np.concatenate(tuple([s.test.bin for s in s_list]), axis=0)
+    test_y = np.concatenate(tuple([s.test.y for s in s_list]), axis=0)
+    test_Xscalar = np.concatenate(tuple([s.test.Xscalar for s in s_list]), axis=0)
+    test_Xvec = np.concatenate(tuple([s.test.Xvec for s in s_list]), axis=0)
+    ss_test = SampleSubset(test_bin, test_y, test_Xscalar, test_Xvec)
+
+    if shuffle:
+        ss_train, ss_validation, ss_test = [shuffle_ss(ss) for ss in [ss_train, ss_validation, ss_test]]
+
+    return Sample(ss_train, ss_validation, ss_test)
