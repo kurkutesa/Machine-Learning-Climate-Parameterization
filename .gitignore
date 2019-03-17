@@ -4,3 +4,4 @@
 *.nc
 *.DS_Store
 *.uk
+.ipynb_checkpoints
